@@ -47,6 +47,20 @@ $containers.forEach(($container, i) => {
       });
     });
 
+    // 별 클릭 시
+    star.addEventListener("click", () => {
+      clickCount = i;
+      for (let j = 0; j <= i; j++) {
+        stars[j].setAttribute("class", "bx bxs-star selected");
+      }
+      stars.forEach((star, index) => {
+        if (index <= i) {
+          star.setAttribute("class", "bx bxs-star selected");
+        } else {
+          star.setAttribute("class", "bx bxs-star");
+        }
+      });
+    });
     stars.push(star);
   }
 
