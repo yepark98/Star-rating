@@ -11,9 +11,9 @@ $containers.forEach(($container, i) => {
   // star-rating 컨테이너 요소의 참조를 StarRating 함수에 전달해 star 요소들로 구성된 star-rating 요소를 동적 생성한다.
 
   // 별 모으는 상위 클래스 생성
-  const starCss = document.createElement("div");
-  starCss.setAttribute("class", "star-rating-container");
-  $container.appendChild(starCss);
+  const container = document.createElement("div");
+  container.setAttribute("class", "star-rating-container");
+  $container.appendChild(container);
 
   const span = document.querySelectorAll("span")[i];
 
@@ -23,7 +23,6 @@ $containers.forEach(($container, i) => {
   // 가져온 별 갯수만큼 별 그리기
   let stars = [];
   let hoverCount = -1;
-  let outCount = -1;
   let clickCount = -1;
 
   for (let i = 0; i < count; i++) {
@@ -35,16 +34,15 @@ $containers.forEach(($container, i) => {
     star.addEventListener("mouseover", () => {
       hoverCount = i;
       stars.forEach((star, index) => {
-        if (index <= i) {
-          if (clickCount < index && clickCount < i) {
-            star.setAttribute("class", "bx bxs-star hovered");
-          }
-        } else {
-          if (clickCount < index && clickCount <= i) {
-            star.setAttribute("class", "bx bxs-star");
-          }
+        if (index <= i && clickCount < index && clickCount < i) {
+          star.setAttribute("class", "bx bxs-star hovered");
         }
       });
+    });
+
+    // 마우스 제거 시
+    star.addEventListener("mouseout", () => {
+      star.classList.remove("hovered");
     });
 
     // 별 클릭 시
@@ -66,7 +64,7 @@ $containers.forEach(($container, i) => {
   }
 
   stars.forEach((star) => {
-    starCss.appendChild(star);
+    container.appendChild(star);
   });
 
   // 이벤트 'rating-change'를 캐치해 화면에 표시한다.
