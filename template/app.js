@@ -60,6 +60,7 @@ $containers.forEach(($container, i) => {
           star.setAttribute("class", "bx bxs-star");
         }
       });
+      span.innerHTML = i + 1;
     });
     stars.push(star);
   }
