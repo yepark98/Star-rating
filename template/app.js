@@ -19,19 +19,37 @@ $containers.forEach(($container, i) => {
 
   // 설정해놓은 별 갯수 가져오기
   const count = $container.getAttribute("data-max-rating");
-  console.log(count);
-
-  const stars = [];
 
   // 가져온 별 갯수만큼 별 그리기
+  let stars = [];
+  let hoverCount = -1;
+  let outCount = -1;
+  let clickCount = -1;
+
   for (let i = 0; i < count; i++) {
     const star = document.createElement("i");
     star.setAttribute("class", "bx bxs-star");
 
+    // 이벤트 추가
+    // 마우스 오버 시
+    star.addEventListener("mouseover", () => {
+      hoverCount = i;
+      stars.forEach((star, index) => {
+        if (index <= i) {
+          if (clickCount < index && clickCount < i) {
+            star.setAttribute("class", "bx bxs-star hovered");
+          }
+        } else {
+          if (clickCount < index && clickCount <= i) {
+            star.setAttribute("class", "bx bxs-star");
+          }
+        }
+      });
+    });
+
     stars.push(star);
   }
 
-  console.log(stars);
   stars.forEach((star) => {
     starCss.appendChild(star);
   });
